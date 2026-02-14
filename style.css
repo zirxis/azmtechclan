@@ -3,6 +3,18 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+html {
+    font-size: 16px;
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
 }
 
 :root {
@@ -35,12 +47,28 @@ body {
     color: var(--gray-800);
     background-color: var(--white);
     overflow-x: hidden;
+    -webkit-user-select: text;
+    user-select: text;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
 }
 
 /* Loading Screen */
@@ -243,10 +271,13 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1000;
     box-shadow: var(--shadow-lg);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: max(0, env(safe-area-inset-top));
 }
 
 .navbar {
     padding: 1rem 0;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 
 .navbar .container {
@@ -308,6 +339,15 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 480px) {
+    .brand-text {
+        font-size: 1.1rem;
+    }
 }
 
 .nav-menu {
@@ -843,13 +883,31 @@ section {
     border-bottom: none;
 }
 
-.service-card li::before {
+.service-card li:before {
     content: '✓';
     position: absolute;
     right: 0;
     color: var(--primary-color);
     font-weight: bold;
     font-size: 1.2rem;
+}
+
+.price-range {
+    background: rgba(30, 64, 175, 0.1);
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border: 2px solid var(--primary-color);
+}
+
+.price-range .price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--gradient-3d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .service-btn {
@@ -1000,6 +1058,16 @@ section {
     font-weight: 700;
     color: var(--primary-color);
     text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
+.price-contact {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--gradient-3d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
 }
 
 .pricing-card ul {
@@ -1153,6 +1221,22 @@ section {
     background: var(--white);
     position: relative;
     z-index: 2;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.form-group input::-webkit-outer-spin-button,
+.form-group input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.form-group select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e40af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: left 10px center;
+    padding-left: 36px;
+    background-size: 20px;
 }
 
 .form-group-3d input:focus,
@@ -1341,6 +1425,22 @@ section {
     flex-direction: column;
     cursor: pointer;
     gap: 4px;
+    background: none;
+    border: none;
+    padding: 8px;
+    margin: 0;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    align-items: center;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: all 0.3s ease;
+}
+
+.hamburger:active {
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 8px;
 }
 
 .hamburger span {
@@ -1349,6 +1449,46 @@ section {
     background: var(--primary-color);
     transition: all 0.3s ease;
     border-radius: 2px;
+    transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+}
+
+/* Mobile Menu Active State */
+.nav-menu.active {
+    display: flex;
+    animation: slideInMenu 0.3s ease forwards;
+}
+
+@keyframes slideInMenu {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--gray-800);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 8px 16px;
+    border-radius: 8px;
 }
 
 /* Responsive Design */
@@ -1359,35 +1499,100 @@ section {
     
     .nav-menu {
         display: none;
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: calc(100% + env(safe-area-inset-top));
         left: 0;
         right: 0;
+        bottom: 0;
         background: rgba(255, 255, 255, 0.98);
         backdrop-filter: blur(20px);
         flex-direction: column;
         padding: 2rem 1rem;
+        padding-top: 2rem;
+        padding-bottom: max(2rem, env(safe-area-inset-bottom));
         box-shadow: var(--shadow-xl);
-        border-radius: 0 0 20px 20px;
+        border-radius: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 999;
+        max-height: 100vh;
+        height: 100vh;
     }
     
     .nav-menu.active {
         display: flex;
     }
+
+    .nav-link {
+        padding: 14px 16px;
+        font-size: 1.1rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid rgba(30, 64, 175, 0.1);
+        transition: all 0.2s ease;
+    }
+
+    .nav-link:hover {
+        background: rgba(59, 130, 246, 0.05);
+        color: var(--primary-color);
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+    
+    /* Disable 3D elements on tablets and mobile */
+    .hero-3d-background,
+    .service-3d-bg,
+    .pricing-3d-bg,
+    .about-3d-icon,
+    .team-3d-model,
+    .floating-elements,
+    .feature-glow,
+    .icon-particles,
+    .btn-ripple {
+        display: none !important;
+    }
+    
+    .service-card-3d,
+    .pricing-card-3d,
+    .stat-3d,
+    .feature-3d {
+        transform: none !important;
+        box-shadow: var(--shadow-md);
+    }
     
     .hero-title {
         font-size: 2.5rem;
+        line-height: 1.1;
     }
     
     .hero-buttons {
         flex-direction: column;
         align-items: center;
         gap: 1rem;
+        width: 100%;
+    }
+
+    .btn {
+        min-height: 48px;
+        min-width: 100%;
+        padding: 14px 20px;
+        font-size: 16px;
+        width: 100%;
     }
     
     .hero-stats {
         flex-direction: column;
         gap: 1.5rem;
+        width: 100%;
+    }
+
+    .stat-3d {
+        padding: 1.5rem 1rem;
+        min-height: 80px;
+        width: 100%;
     }
     
     .about-content {
@@ -1396,7 +1601,8 @@ section {
     }
     
     .features {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
     
     .contact-content {
@@ -1410,6 +1616,10 @@ section {
     
     .services-grid {
         grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        box-shadow: var(--shadow-md);
     }
     
     .section-title {
@@ -1427,15 +1637,50 @@ section {
     .floating-elements {
         display: none;
     }
+
+    /* Optimize hero for mobile */
+    .hero {
+        min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+        padding-top: 80px;
+    }
+
+    /* Improve spacing on mobile */
+    section {
+        padding: 3rem 0;
+    }
+
+    /* Optimize inputs for mobile */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+        min-height: 48px;
+        font-size: 16px;
+        padding: 12px;
+        border-radius: 8px;
+        border: 2px solid var(--gray-200);
+        width: 100%;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    textarea:focus,
+    select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    }
 }
 
 @media (max-width: 480px) {
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.75rem;
+        line-height: 1.1;
     }
     
     .section-title {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
     }
     
     .pricing-card.featured {
@@ -1443,12 +1688,14 @@ section {
     }
     
     .btn {
-        padding: 12px 20px;
+        padding: 12px 16px;
         font-size: 14px;
+        min-height: 44px;
+        width: 100%;
     }
     
     .stat-3d {
-        padding: 1.5rem 1rem;
+        padding: 1rem;
     }
     
     .service-content {
@@ -1456,7 +1703,92 @@ section {
     }
     
     .pricing-card {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem;
+    }
+
+    /* Stack everything on very small screens */
+    .hero-buttons {
+        width: 100%;
+        gap: 0.75rem;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+        min-height: 48px;
+        font-size: 16px;
+        padding: 12px;
+        border-radius: 6px;
+    }
+
+    /* Prevent iOS zoom on input focus */
+    input,
+    textarea,
+    select,
+    button {
+        font-size: 16px;
+    }
+
+    /* Improve touch targets */
+    button,
+    a.btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    /* Better spacing on small devices */
+    body {
+        line-height: 1.7;
+    }
+
+    section {
+        padding: 1.5rem 0;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .section-header {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Reduce gap on small screens */
+    .features {
+        gap: 0.75rem;
+    }
+
+    .nav-link {
+        padding: 12px 16px;
+        font-size: 1rem;
+    }
+
+    .brand-text {
+        font-size: 1rem;
+    }
+
+    /* Ensure forms are readable */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    label {
+        font-size: 14px;
+        font-weight: 600;
     }
 }
 

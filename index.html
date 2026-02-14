@@ -2,9 +2,14 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="عزم Tech Clan">
+    <meta name="theme-color" content="#1e40af">
     <title>عزم Tech Clan - خدمات تقنية وإبداعية</title>
     <meta name="description" content="نوفر خدمات مبتكرة في الأمن السيبراني، تطوير المواقع، التصميم، والمونتاج بجودة عالية وسعر مناسب">
+    <meta name="keywords" content="تطوير مواقع، تصميم، أمن سيبراني، مونتاج، خدمات تقنية">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,6 +20,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <!-- Particles.js for dynamic background -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Lazy loading support -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 </head>
 <body>
 
@@ -30,18 +38,18 @@
                     </div>
                     <span class="brand-text">عزم Tech Clan</span>
                 </div>
-                <ul class="nav-menu">
+                <ul class="nav-menu" id="nav-menu">
                     <li><a href="#home" class="nav-link">الرئيسية</a></li>
                     <li><a href="#about" class="nav-link">من نحن</a></li>
                     <li><a href="#services" class="nav-link">خدماتنا</a></li>
                     <li><a href="#pricing" class="nav-link">الأسعار</a></li>
                     <li><a href="#contact" class="nav-link">اتصل بنا</a></li>
                 </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </button>
             </div>
         </nav>
     </header>
@@ -119,7 +127,7 @@
                     <p>أن نصبح الوجهة الأولى للعملاء الذين يبحثون عن حلول تقنية وإبداعية موثوقة وسريعة.</p>
                     
                     <h3>رسالتنا</h3>
-                    <p>نوفر خدمات مبتكرة في الأمن السيبراني، تطوير المواقع، التصميم، والمونتاج بجودة عالية وسعر مناسب.</p>
+                    <p>نقدم خدمات متخصصة في تصميم وبرمجة المواقع مع التطبيقات الموبايل، وتصميم الهويات البصرية، والعروض التقديمية بجودة عالية وأسعار منافسة.</p>
                     
                     <div class="features">
                         <div class="feature feature-3d">
@@ -180,43 +188,24 @@
                 <p class="section-subtitle">نقدم مجموعة شاملة من الخدمات التقنية والإبداعية</p>
             </div>
             <div class="services-grid">
-                <!-- Cybersecurity Services -->
+                <!-- Website & Mobile App Development -->
                 <div class="service-card service-card-3d" data-tilt>
-                    <div class="service-3d-bg" id="security-3d"></div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-shield-alt"></i>
-                            <div class="icon-particles"></div>
-                        </div>
-                        <h3>الأمن السيبراني</h3>
-                        <ul>
-                            <li>حماية من الاختراق</li>
-                            <li>فحص واختبار الاختراق (Pen Testing)</li>
-                            <li>تأمين السيرفرات والمواقع</li>
-                            <li>استشارات أمنية</li>
-                        </ul>
-                        <a href="#pricing" class="service-btn btn-3d">
-                            <span>اطلب الخدمة</span>
-                            <div class="btn-ripple"></div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Development Services -->
-                <div class="service-card service-card-3d" data-tilt>
-                    <div class="service-3d-bg" id="dev-3d"></div>
+                    <div class="service-3d-bg" id="web-dev-3d"></div>
                     <div class="service-content">
                         <div class="service-icon">
                             <i class="fas fa-code"></i>
                             <div class="icon-particles"></div>
                         </div>
-                        <h3>البرمجة والتطوير</h3>
+                        <h3>تصميم وبرمجة الموقع مع تطبيق موبايل</h3>
                         <ul>
-                            <li>تصميم وبرمجة مواقع متجاوبة</li>
-                            <li>تطوير صفحات هبوط (Landing Pages)</li>
-                            <li>حلول مخصصة للمشاريع الصغيرة</li>
-                            <li>تطبيقات ويب تفاعلية</li>
+                            <li>تصميم وبرمجة مواقع متجاوبة احترافية</li>
+                            <li>تطوير تطبيقات موبايل قوية وسريعة</li>
+                            <li>واجهات مستخدم جذابة وسهلة الاستخدام</li>
+                            <li>تكامل كامل بين الموقع والتطبيق</li>
                         </ul>
+                        <div class="price-range">
+                            <span class="price">$300 - $700</span>
+                        </div>
                         <a href="#pricing" class="service-btn btn-3d">
                             <span>اطلب الخدمة</span>
                             <div class="btn-ripple"></div>
@@ -224,21 +213,24 @@
                     </div>
                 </div>
 
-                <!-- Design Services -->
+                <!-- Brand Identity Design -->
                 <div class="service-card service-card-3d" data-tilt>
-                    <div class="service-3d-bg" id="design-3d"></div>
+                    <div class="service-3d-bg" id="branding-3d"></div>
                     <div class="service-content">
                         <div class="service-icon">
                             <i class="fas fa-palette"></i>
                             <div class="icon-particles"></div>
                         </div>
-                        <h3>التصميم الجرافيكي</h3>
+                        <h3>تصميم هوية بصرية</h3>
                         <ul>
-                            <li>تصميم شعارات وهوية بصرية</li>
-                            <li>قوالب سوشيال ميديا</li>
-                            <li>تصميم بروفايلات للشركات</li>
-                            <li>مواد تسويقية إبداعية</li>
+                            <li>تصميم شعارات احترافية وفريدة</li>
+                            <li>نظام الألوان والخطوط المتسقة</li>
+                            <li>مواد هوية بصرية شاملة</li>
+                            <li>قوالب سوشيال ميديا وبطاقات أعمال</li>
                         </ul>
+                        <div class="price-range">
+                            <span class="price">$100 - $400</span>
+                        </div>
                         <a href="#pricing" class="service-btn btn-3d">
                             <span>اطلب الخدمة</span>
                             <div class="btn-ripple"></div>
@@ -246,21 +238,24 @@
                     </div>
                 </div>
 
-                <!-- Video Production Services -->
+                <!-- Presentation Services -->
                 <div class="service-card service-card-3d" data-tilt>
-                    <div class="service-3d-bg" id="video-3d"></div>
+                    <div class="service-3d-bg" id="presentation-3d"></div>
                     <div class="service-content">
                         <div class="service-icon">
-                            <i class="fas fa-video"></i>
+                            <i class="fas fa-presentation"></i>
                             <div class="icon-particles"></div>
                         </div>
-                        <h3>المونتاج والإنتاج المرئي</h3>
+                        <h3>خدمة العرض التقديمي</h3>
                         <ul>
-                            <li>مونتاج فيديوهات إعلانات</li>
-                            <li>بروموهات تسويقية</li>
-                            <li>محتوى يوتيوب احترافي</li>
-                            <li>تحرير وتعديل الفيديوهات</li>
+                            <li>تصميم عروض تقديمية احترافية وجذابة</li>
+                            <li>عروض للشركات والمشاريع والأحداث</li>
+                            <li>رسوميات وحركات احترافية</li>
+                            <li>محتوى تسويقي مؤثر وفعال</li>
                         </ul>
+                        <div class="price-range">
+                            <span class="price">تواصل معنا للسعر</span>
+                        </div>
                         <a href="#pricing" class="service-btn btn-3d">
                             <span>اطلب الخدمة</span>
                             <div class="btn-ripple"></div>
@@ -279,26 +274,26 @@
                 <p class="section-subtitle">اختر الباقة المناسبة لاحتياجاتك</p>
             </div>
             <div class="pricing-grid">
-                <!-- Technical Packages -->
+                <!-- Website & Mobile App Development Packages -->
                 <div class="pricing-category">
                     <h3 class="category-title">
-                        <div class="category-icon-3d" id="tech-icon-3d"></div>
-                        <i class="fas fa-shield-alt"></i>
-                        الباقات التقنية
+                        <div class="category-icon-3d" id="web-dev-icon-3d"></div>
+                        <i class="fas fa-code"></i>
+                        تصميم وبرمجة الموقع مع تطبيق موبايل
                     </h3>
                     <div class="pricing-cards">
                         <div class="pricing-card pricing-card-3d" data-tilt>
                             <div class="pricing-3d-bg"></div>
-                            <h4>حماية موقع</h4>
+                            <h4>موقع أساسي</h4>
                             <div class="price">
                                 <span class="currency">$</span>
-                                <span class="amount">50</span>
+                                <span class="amount">300</span>
                             </div>
                             <ul>
-                                <li><i class="fas fa-check"></i>فحص شامل للثغرات</li>
-                                <li><i class="fas fa-check"></i>تطبيق إجراءات الحماية</li>
-                                <li><i class="fas fa-check"></i>مراقبة مستمرة</li>
-                                <li><i class="fas fa-check"></i>تقرير مفصل</li>
+                                <li><i class="fas fa-check"></i>موقع احترافي متجاوب</li>
+                                <li><i class="fas fa-check"></i>تطبيق موبايل بسيط</li>
+                                <li><i class="fas fa-check"></i>3-5 صفحات رئيسية</li>
+                                <li><i class="fas fa-check"></i>متوافق مع محركات البحث</li>
                             </ul>
                             <a href="#contact" class="pricing-btn btn-3d">
                                 <span>اطلب الآن</span>
@@ -308,16 +303,16 @@
                         <div class="pricing-card pricing-card-3d featured" data-tilt>
                             <div class="featured-badge">الأكثر طلباً</div>
                             <div class="pricing-3d-bg featured-bg"></div>
-                            <h4>اختبار اختراق</h4>
+                            <h4>موقع متقدم</h4>
                             <div class="price">
                                 <span class="currency">$</span>
-                                <span class="amount">100</span>
+                                <span class="amount">500</span>
                             </div>
                             <ul>
-                                <li><i class="fas fa-check"></i>اختبار شامل للنظام</li>
-                                <li><i class="fas fa-check"></i>محاكاة هجمات حقيقية</li>
-                                <li><i class="fas fa-check"></i>تقرير تفصيلي</li>
-                                <li><i class="fas fa-check"></i>توصيات للتحسين</li>
+                                <li><i class="fas fa-check"></i>موقع متقدم وديناميكي</li>
+                                <li><i class="fas fa-check"></i>تطبيق موبايل متطور</li>
+                                <li><i class="fas fa-check"></i>لوحة تحكم إدارية</li>
+                                <li><i class="fas fa-check"></i>نظام دفع متكامل</li>
                             </ul>
                             <a href="#contact" class="pricing-btn btn-3d featured-btn">
                                 <span>اطلب الآن</span>
@@ -326,16 +321,16 @@
                         </div>
                         <div class="pricing-card pricing-card-3d" data-tilt>
                             <div class="pricing-3d-bg"></div>
-                            <h4>صفحة هبوط</h4>
+                            <h4>حل متكامل</h4>
                             <div class="price">
                                 <span class="currency">$</span>
-                                <span class="amount">80</span>
+                                <span class="amount">700</span>
                             </div>
                             <ul>
-                                <li><i class="fas fa-check"></i>تصميم احترافي</li>
-                                <li><i class="fas fa-check"></i>متجاوب مع الأجهزة</li>
-                                <li><i class="fas fa-check"></i>محسن لمحركات البحث</li>
-                                <li><i class="fas fa-check"></i>نماذج تفاعلية</li>
+                                <li><i class="fas fa-check"></i>موقع متخصص بميزات عالية</li>
+                                <li><i class="fas fa-check"></i>تطبيق موبايل احترافي</li>
+                                <li><i class="fas fa-check"></i>إدارة محتوى متقدمة</li>
+                                <li><i class="fas fa-check"></i>دعم فني مستمر 3 أشهر</li>
                             </ul>
                             <a href="#contact" class="pricing-btn btn-3d">
                                 <span>اطلب الآن</span>
@@ -345,34 +340,135 @@
                     </div>
                 </div>
 
-                <!-- Design Packages -->
+                <!-- Brand Identity Design Packages -->
                 <div class="pricing-category">
                     <h3 class="category-title">
-                        <div class="category-icon-3d" id="design-icon-3d"></div>
+                        <div class="category-icon-3d" id="brand-icon-3d"></div>
                         <i class="fas fa-palette"></i>
-                        باقات التصميم
+                        تصميم هوية بصرية
                     </h3>
                     <div class="pricing-cards">
                         <div class="pricing-card pricing-card-3d" data-tilt>
                             <div class="pricing-3d-bg"></div>
-                            <h4>شعار احترافي</h4>
+                            <h4>شعار فقط</h4>
                             <div class="price">
                                 <span class="currency">$</span>
-                                <span class="amount">25</span>
+                                <span class="amount">100</span>
                             </div>
                             <ul>
                                 <li><i class="fas fa-check"></i>3 مفاهيم تصميم</li>
-                                <li><i class="fas fa-check"></i>تعديلات مجانية</li>
+                                <li><i class="fas fa-check"></i>تعديلات غير محدودة</li>
                                 <li><i class="fas fa-check"></i>ملفات عالية الجودة</li>
-                                <li><i class="fas fa-check"></i>دليل الاستخدام</li>
+                                <li><i class="fas fa-check"></i>دليل استخدام الشعار</li>
                             </ul>
                             <a href="#contact" class="pricing-btn btn-3d">
                                 <span>اطلب الآن</span>
                                 <div class="btn-ripple"></div>
                             </a>
                         </div>
+                        <div class="pricing-card pricing-card-3d featured" data-tilt>
+                            <div class="featured-badge">الأكثر طلباً</div>
+                            <div class="pricing-3d-bg featured-bg"></div>
+                            <h4>هوية بصرية</h4>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount">250</span>
+                            </div>
+                            <ul>
+                                <li><i class="fas fa-check"></i>شعار احترافي</li>
+                                <li><i class="fas fa-check"></i>نظام الألوان</li>
+                                <li><i class="fas fa-check"></i>قوالب وسائط اجتماعية</li>
+                                <li><i class="fas fa-check"></i>بطاقات أعمال وأختام</li>
+                            </ul>
+                            <a href="#contact" class="pricing-btn btn-3d featured-btn">
+                                <span>اطلب الآن</span>
+                                <div class="btn-ripple"></div>
+                            </a>
+                        </div>
                         <div class="pricing-card pricing-card-3d" data-tilt>
                             <div class="pricing-3d-bg"></div>
+                            <h4>حزمة شاملة</h4>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount">400</span>
+                            </div>
+                            <ul>
+                                <li><i class="fas fa-check"></i>شعار متميز وفريد</li>
+                                <li><i class="fas fa-check"></i>كتيب تصميمي شامل</li>
+                                <li><i class="fas fa-check"></i>مواد تسويقية متكاملة</li>
+                                <li><i class="fas fa-check"></i>تطبيق على جميع الوسائط</li>
+                            </ul>
+                            <a href="#contact" class="pricing-btn btn-3d">
+                                <span>اطلب الآن</span>
+                                <div class="btn-ripple"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Presentation Services Packages -->
+                <div class="pricing-category">
+                    <h3 class="category-title">
+                        <div class="category-icon-3d" id="presentation-icon-3d"></div>
+                        <i class="fas fa-presentation"></i>
+                        خدمة العرض التقديمي
+                    </h3>
+                    <div class="pricing-cards">
+                        <div class="pricing-card pricing-card-3d" data-tilt>
+                            <div class="pricing-3d-bg"></div>
+                            <h4>عرض تقديمي أساسي</h4>
+                            <div class="price">
+                                <span class="price-contact">تواصل معنا</span>
+                            </div>
+                            <ul>
+                                <li><i class="fas fa-check"></i>10-15 شرائح احترافية</li>
+                                <li><i class="fas fa-check"></i>تصميم جذاب وموحد</li>
+                                <li><i class="fas fa-check"></i>رسوميات عالية الجودة</li>
+                                <li><i class="fas fa-check"></i>نسخة PowerPoint و PDF</li>
+                            </ul>
+                            <a href="#contact" class="pricing-btn btn-3d">
+                                <span>اطلب الآن</span>
+                                <div class="btn-ripple"></div>
+                            </a>
+                        </div>
+                        <div class="pricing-card pricing-card-3d featured" data-tilt>
+                            <div class="featured-badge">الموصى به</div>
+                            <div class="pricing-3d-bg featured-bg"></div>
+                            <h4>عرض متقدم</h4>
+                            <div class="price">
+                                <span class="price-contact">تواصل معنا</span>
+                            </div>
+                            <ul>
+                                <li><i class="fas fa-check"></i>20-30 شريحة متقدمة</li>
+                                <li><i class="fas fa-check"></i>حركات ورسوميات متطورة</li>
+                                <li><i class="fas fa-check"></i>موسيقى تصويرية احترافية</li>
+                                <li><i class="fas fa-check"></i>عرض مخصص وديناميكي</li>
+                            </ul>
+                            <a href="#contact" class="pricing-btn btn-3d featured-btn">
+                                <span>اطلب الآن</span>
+                                <div class="btn-ripple"></div>
+                            </a>
+                        </div>
+                        <div class="pricing-card pricing-card-3d" data-tilt>
+                            <div class="pricing-3d-bg"></div>
+                            <h4>عرض متكامل</h4>
+                            <div class="price">
+                                <span class="price-contact">تواصل معنا</span>
+                            </div>
+                            <ul>
+                                <li><i class="fas fa-check"></i>حتى 50 شريحة احترافية</li>
+                                <li><i class="fas fa-check"></i>رسوميات وحركات عالية</li>
+                                <li><i class="fas fa-check"></i>تصوير وفيديو متدمج</li>
+                                <li><i class="fas fa-check"></i>دعم العرض المباشر</li>
+                            </ul>
+                            <a href="#contact" class="pricing-btn btn-3d">
+                                <span>اطلب الآن</span>
+                                <div class="btn-ripple"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
                             <h4>هوية بصرية</h4>
                             <div class="price">
                                 <span class="currency">$</span>
@@ -401,71 +497,6 @@
                                 <li><i class="fas fa-check"></i>قوالب قابلة للتعديل</li>
                                 <li><i class="fas fa-check"></i>مقاسات متعددة</li>
                                 <li><i class="fas fa-check"></i>تسليم سريع</li>
-                            </ul>
-                            <a href="#contact" class="pricing-btn btn-3d">
-                                <span>اطلب الآن</span>
-                                <div class="btn-ripple"></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Video Packages -->
-                <div class="pricing-category">
-                    <h3 class="category-title">
-                        <div class="category-icon-3d" id="video-icon-3d"></div>
-                        <i class="fas fa-video"></i>
-                        باقات المونتاج
-                    </h3>
-                    <div class="pricing-cards">
-                        <div class="pricing-card pricing-card-3d" data-tilt>
-                            <div class="pricing-3d-bg"></div>
-                            <h4>فيديو إعلاني قصير</h4>
-                            <div class="price">
-                                <span class="currency">$</span>
-                                <span class="amount">30</span>
-                            </div>
-                            <ul>
-                                <li><i class="fas fa-check"></i>مدة حتى 30 ثانية</li>
-                                <li><i class="fas fa-check"></i>مؤثرات بصرية</li>
-                                <li><i class="fas fa-check"></i>موسيقى تصويرية</li>
-                                <li><i class="fas fa-check"></i>جودة عالية HD</li>
-                            </ul>
-                            <a href="#contact" class="pricing-btn btn-3d">
-                                <span>اطلب الآن</span>
-                                <div class="btn-ripple"></div>
-                            </a>
-                        </div>
-                        <div class="pricing-card pricing-card-3d" data-tilt>
-                            <div class="pricing-3d-bg"></div>
-                            <h4>برومو احترافي</h4>
-                            <div class="price">
-                                <span class="currency">$</span>
-                                <span class="amount">60</span>
-                            </div>
-                            <ul>
-                                <li><i class="fas fa-check"></i>مدة حتى دقيقتين</li>
-                                <li><i class="fas fa-check"></i>مؤثرات متقدمة</li>
-                                <li><i class="fas fa-check"></i>تصحيح ألوان</li>
-                                <li><i class="fas fa-check"></i>جودة 4K</li>
-                            </ul>
-                            <a href="#contact" class="pricing-btn btn-3d">
-                                <span>اطلب الآن</span>
-                                <div class="btn-ripple"></div>
-                            </a>
-                        </div>
-                        <div class="pricing-card pricing-card-3d" data-tilt>
-                            <div class="pricing-3d-bg"></div>
-                            <h4>محتوى يوتيوب</h4>
-                            <div class="price">
-                                <span class="currency">$</span>
-                                <span class="amount">40</span>
-                            </div>
-                            <ul>
-                                <li><i class="fas fa-check"></i>مونتاج احترافي</li>
-                                <li><i class="fas fa-check"></i>مقدمة ونهاية</li>
-                                <li><i class="fas fa-check"></i>ترجمة وعناوين</li>
-                                <li><i class="fas fa-check"></i>تحسين للمنصة</li>
                             </ul>
                             <a href="#contact" class="pricing-btn btn-3d">
                                 <span>اطلب الآن</span>
@@ -517,25 +548,24 @@
                     <h3>أرسل لنا رسالة</h3>
                     <form id="contactForm" class="form-3d">
                         <div class="form-group form-group-3d">
-                            <input type="text" name="name" placeholder="الاسم الكامل" required>
+                            <input type="text" name="name" placeholder="الاسم الكامل" required autocomplete="name" inputmode="text">
                             <div class="input-glow"></div>
                         </div>
                         <div class="form-group form-group-3d">
-                            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+                            <input type="email" name="email" placeholder="البريد الإلكتروني" required autocomplete="email" inputmode="email">
                             <div class="input-glow"></div>
                         </div>
                         <div class="form-group form-group-3d">
-                            <select name="service" required>
+                            <select name="service" required autocomplete="off">
                                 <option value="">اختر الخدمة</option>
-                                <option value="cybersecurity">الأمن السيبراني</option>
-                                <option value="development">البرمجة والتطوير</option>
-                                <option value="design">التصميم الجرافيكي</option>
-                                <option value="video">المونتاج والإنتاج المرئي</option>
+                                <option value="web-development">تصميم وبرمجة الموقع مع تطبيق موبايل</option>
+                                <option value="branding">تصميم هوية بصرية</option>
+                                <option value="presentation">خدمة العرض التقديمي</option>
                             </select>
                             <div class="input-glow"></div>
                         </div>
                         <div class="form-group form-group-3d">
-                            <textarea name="message" placeholder="رسالتك" rows="5" required></textarea>
+                            <textarea name="message" placeholder="رسالتك" rows="5" required autocomplete="off" inputmode="text"></textarea>
                             <div class="input-glow"></div>
                         </div>
                         <button type="submit" class="btn btn-primary btn-3d submit-btn">

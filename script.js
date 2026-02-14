@@ -7,6 +7,17 @@ let animationId;
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Detect mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    document.documentElement.classList.toggle('is-mobile', isMobile);
+    
+    // Prevent rubber band effect on iOS
+    if (isMobile) {
+        document.addEventListener('touchmove', function(e) {
+            if (e.target.closest('.nav-menu, textarea, input')) return;
+        }, { passive: true });
+    }
+    
     // Show loading screen
     showLoadingScreen();
     
@@ -19,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         init3DElements();
         initParticles();
         initAdvancedEffects();
+        initMobileOptimizations();
         hideLoadingScreen();
     }, 2000);
 });
@@ -55,8 +67,60 @@ function hideLoadingScreen() {
     }
 }
 
+// Mobile Optimizations
+function initMobileOptimizations() {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Reduce animation complexity on mobile
+        document.documentElement.style.setProperty('--animation-duration', '0.3s');
+        
+        // Optimize 3D elements for mobile
+        const hero3D = document.getElementById('hero-3d');
+        if (hero3D && heroRenderer) {
+            // Reduce renderer quality on mobile
+            heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        }
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', debounce(() => {
+        const isMobileNow = window.innerWidth <= 768;
+        if (isMobileNow !== isMobile) {
+            window.location.reload();
+        }
+    }, 250));
+    
+    // Optimize touch events
+    document.addEventListener('touchstart', () => {}, { passive: true });
+    document.addEventListener('touchend', () => {}, { passive: true });
+    document.addEventListener('touchmove', () => {}, { passive: true });
+}
+
+// Debounce utility for resize events
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
 // Initialize 3D Elements
 function init3DElements() {
+    // Check if device is mobile
+    const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+    
+    // Skip 3D on mobile devices
+    if (isMobile) {
+        console.log('Mobile device detected - skipping 3D elements');
+        return;
+    }
+    
     initHero3D();
     initAbout3D();
     initServices3D();
@@ -70,13 +134,17 @@ function init3DElements() {
 function initHero3D() {
     const container = document.getElementById('hero-3d');
     if (!container) return;
+    
+    // Skip on mobile
+    if (window.innerWidth <= 768) return;
 
     // Scene setup
     heroScene = new THREE.Scene();
     heroCamera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
-    heroRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    heroRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: false, powerPreference: 'low-power' });
     
     heroRenderer.setSize(container.offsetWidth, container.offsetHeight);
+    heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     heroRenderer.setClearColor(0x000000, 0);
     container.appendChild(heroRenderer.domElement);
 
@@ -231,7 +299,7 @@ function initAbout3D() {
 
 // Services 3D Backgrounds
 function initServices3D() {
-    const services = ['security-3d', 'dev-3d', 'design-3d', 'video-3d'];
+    const services = ['web-dev-3d', 'branding-3d', 'presentation-3d'];
     
     services.forEach((serviceId, index) => {
         const container = document.getElementById(serviceId);
@@ -248,17 +316,14 @@ function initServices3D() {
         // Different shapes for different services
         let geometry;
         switch(index) {
-            case 0: // Security - Shield shape
-                geometry = new THREE.ConeGeometry(1, 2, 6);
-                break;
-            case 1: // Development - Cube
+            case 0: // Web Development - Cube
                 geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
                 break;
-            case 2: // Design - Sphere
+            case 1: // Branding - Sphere
                 geometry = new THREE.SphereGeometry(1, 32, 32);
                 break;
-            case 3: // Video - Cylinder
-                geometry = new THREE.CylinderGeometry(1, 1, 2, 32);
+            case 2: // Presentation - Torus
+                geometry = new THREE.TorusGeometry(1, 0.4, 16, 100);
                 break;
         }
 
@@ -292,7 +357,7 @@ function initServices3D() {
 
 // Pricing 3D Icons
 function initPricing3D() {
-    const icons = ['tech-icon-3d', 'design-icon-3d', 'video-icon-3d'];
+    const icons = ['web-dev-icon-3d', 'brand-icon-3d', 'presentation-icon-3d'];
     
     icons.forEach((iconId, index) => {
         const container = document.getElementById(iconId);
@@ -308,13 +373,13 @@ function initPricing3D() {
 
         let geometry;
         switch(index) {
-            case 0: // Tech
+            case 0: // Web Development
                 geometry = new THREE.OctahedronGeometry(1);
                 break;
-            case 1: // Design
+            case 1: // Branding
                 geometry = new THREE.IcosahedronGeometry(1);
                 break;
-            case 2: // Video
+            case 2: // Presentation
                 geometry = new THREE.TetrahedronGeometry(1);
                 break;
         }
@@ -580,27 +645,41 @@ function initNavigation() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
+    let isMenuOpen = false;
 
     // Toggle mobile menu
     if (hamburger) {
-        hamburger.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            hamburger.classList.toggle('active');
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                navMenu.classList.add('active');
+                hamburger.classList.add('active');
+                // Prevent body scroll when menu is open
+                document.body.style.overflow = 'hidden';
+            } else {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            // Update ARIA attributes
+            hamburger.setAttribute('aria-expanded', isMenuOpen);
         });
     }
 
     // Close menu when clicking on a link
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-        });
-    });
-
-    // Smooth scrolling for navigation links
-    navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
+            navMenu.classList.remove('active');
+            hamburger?.classList.remove('active');
+            hamburger?.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+            isMenuOpen = false;
+            
+            // Smooth scroll to target
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
             
@@ -616,8 +695,42 @@ function initNavigation() {
         });
     });
 
-    // Header background on scroll with enhanced effects
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (isMenuOpen && 
+            navMenu?.classList.contains('active') && 
+            !navMenu.contains(e.target) && 
+            !hamburger?.contains(e.target)) {
+            navMenu.classList.remove('active');
+            hamburger?.classList.remove('active');
+            hamburger?.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+            isMenuOpen = false;
+        }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenu?.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            hamburger?.classList.remove('active');
+            hamburger?.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+            isMenuOpen = false;
+        }
+    });
+
+    // Close menu on scroll
     window.addEventListener('scroll', function() {
+        if (isMenuOpen && navMenu?.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            hamburger?.classList.remove('active');
+            hamburger?.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+            isMenuOpen = false;
+        }
+        
+        // Header background on scroll with enhanced effects
         const header = document.querySelector('.header');
         const scrollY = window.scrollY;
         
